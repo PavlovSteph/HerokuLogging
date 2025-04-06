@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layouts/defaultTemplate">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Catalog/Shop</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/images/medicine.ico}" />
+	<script>
+		// Perform search without reloading the page
+		function performSearch(event) {
+			event.preventDefault(); // Prevent the form from reloading the page
+
+			var searchQuery = document.getElementById("searchInput").value;
+			var url = '/shop/search?query=' + encodeURIComponent(searchQuery);
+
+			// Use fetch to send an AJAX request to the search endpoint
+			fetch(url)
+				.then(response => response.text())  // Expect HTML response (productList fragment)
+				.then(data => {
+					// Replace the existing product list with the new results
+					document.getElementById("productListContainer").innerHTML = data;
+				})
+				.catch(error => console.error('Error performing search:', error));
+		}
+	</script>
+</head>
+
+<body style="background-color:lightblue">
+	<div layout:fragment="content">
+		<!-- Page Title and Log -->
+		<h2 th:text="${title}">Default Message Text</h2><br />
+		<div align-center style="font-family:Poppins; font-size:24px">Welcome to our website where we sell medicine</div>
+		<div align-center style="font-family:Poppins; font-size:24px">Take a look below to view our medicine supplies</div><br /><br />
+
+		<!-- Search Bar Form -->
+		<form id="searchForm" action="/shop/search" method="get" style="text-align: center;" onsubmit="performSearch(event)">
+			<input type="text" name="query" id="searchInput" placeholder="Search for medicine..." style="font-family: Poppins; font-size: 16px; padding: 8px; width: 200px; border-radius: 5px;" />
+			<button type="submit" style="font-family: Poppins; font-size: 16px; padding: 8px 16px; background-color: #4CAF50; border: none; border-radius: 5px;">Search</button>
+		</form>
+		<br />
+
+		<!-- Container for dynamically updating the product list -->
+		<div id="productListContainer" th:fragment="productList">
+			<div th:each="product : ${products}" style="margin-bottom: 24px; font-family:Poppins;">
+				<img th:src="${product.picURL}" style="width: 320px; height: 315px; display: block; margin: 0 auto;" />
+				<div style="text-align: center;font-size: 20px; margin-top: 10px;">
+					Name: <span th:text="${product.name}"></span>
+				</div>
+				<div style="text-align: center; font-size: 20px; margin-top: 5px;">
+					Effects: <span th:text="${product.effects}"></span>
+				</div>
+				<div style="text-align: center; font-size: 20px; margin-top: 5px;">
+					Price: $<span th:text="${product.price}"></span>
+				</div>
+				<div style="text-align: center; font-size: 20px; margin-top: 5px;">
+					Ingredients: <span th:text="${product.ingredients}"></span>
+				</div>
+
+				<!-- Update button and delete form -->
+				<form action="/shop/update" method="post">
+					<input type="hidden" name="productId" th:value="${product.ID}" />
+					<button th:if="${updateClicked == false}" style="font-size: 18px; background-color: rgb(68, 151, 187); border-radius: 6px; padding: 8px 40px;" type="submit">Update</button>
+				</form>
+
+				<form action="/shop/submit" method="post" th:if="${updateClicked == true}" style="font-family: Poppins;">
+					<input type="hidden" name="productId" th:value="${products.ID}" />
+					<input type="text" name="picURL" placeholder="New Pic URL" />
+					<input type="text" name="name" placeholder="New Name" />
+					<input type="text" name="effects" placeholder="New Effects" />
+					<input type="text" name="price" placeholder="New Price" />
+					<input type="text" name="ingredients" placeholder="New Ingredients" />
+					<button type="submit">Submit</button>
+				</form>
+
+				<form action="/shop/delete" method="post">
+					<input type="hidden" name="productId" th:value="${product.ID}">
+					<button th:if="${updateClicked == false}" type="submit">Delete</button>
+				</form>
+
+				<hr style="width: 50%; margin: 20px auto; border-top: 1px solid #ccc;">
+			</div>
+		</div>
+
+		<br /><br /><br />
+	</div>
+
+	<div th:fragment="footer">
+		<h5 style="color:darkgreen; text-align: center;position: fixed; bottom: 0;width: 100%;">Copyright 2024 Potents Company</h5>
+	</div>
+</body>
+
+</html>
+
+

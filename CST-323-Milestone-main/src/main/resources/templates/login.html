@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate"> 
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/medicine.ico}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+</head>
+
+<body style="background-color:lightblue; font-family:Poppins">
+<h2 style="text-align: center">Please fill in the text fields to login to Potents</h2>
+	<div layout:fragment="content">
+		<div class = "container">
+     		<!-- Form  -->
+       <form style="font-size: 20px" action="#" th:action="@{/login}" th:object="${loginModel}" method="post">
+		<h1>Login Form</h1><br/>
+          <div class="mb-3">
+            <label for="exampleInputUsername" class="form-label">Username</label>
+            <input style="width: 500px" type="text" class="form-control" id="exampleUsername" th:field="${loginModel.username}">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input style="width: 500px" type="password" class="form-control" id="exampleInputPassword1" th:field="${loginModel.password}">
+        </div><br/>
+
+
+            <button style="width: 100px" type="submit" class="btn btn-primary">Submit</button><br/><br/>
+             <div th:if="${errorMessage}" style="color: red; font-weight: bold;">Your username does not exist or your password is incorrect</div>
+			<div th:if="${#fields.hasErrors('*')}"></div>
+            <div th:each="err : ${#fields.errors('*')}">
+                <span style="color:red" th:text="${err}" class="fieldError"></span>
+            </div>
+            <div>Don't have an account? <a href="/potents/register">Register here</a></div>
+        </form>
+		</div>
+    </div>
+</body>
+</html>

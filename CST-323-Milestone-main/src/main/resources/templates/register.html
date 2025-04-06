@@ -1,0 +1,64 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layouts/defaultTemplate">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Register</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/medicine.ico}" />
+</head>
+
+<body style="background-color:lightblue">
+    <div layout:fragment="content">
+        <div class="container">
+            <!-- Form  -->
+            <form style="font-family:Poppins; font-size: 20px" action="#" th:action="@{/potents/submit}"
+                th:object="${registerModel}" method="post">
+                <div>
+                    <h1>Register Form</h1>
+                </div><br />
+
+                <div class="mb-3">
+                    <label for="exampleInputFirstName" class="form-label">First Name</label>
+                    <input style="width: 500px" type="text" class="form-control" id="exampleInputFirstName" th:field="*{firstName}">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="exampleInputLastName" class="form-label">Last Name</label>
+                    <input style="width: 500px" type="text" class="form-control" id="exampleInputLastName" th:field="*{lastName}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email Address</label>
+                    <input style="width: 500px" type="email" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" th:field="*{email}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputPhoneNumber" class="form-label">Phone Number</label>
+                    <input style="width: 500px" type="text" class="form-control" id="exampleInputPhoneNumber" th:field="*{phoneNumber}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputUsername" class="form-label">Username</label>
+                    <input style="width: 500px" type="text" class="form-control" id="exampleInputUsername" th:field="*{username}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input style="width: 500px" type="password" class="form-control" id="exampleInputPassword1" th:field="*{password}">
+                </div><br />
+
+                 <button style="width: 100px" type="submit" class="btn btn-primary">Submit</button><br/><br/>
+             <div th:if="${errorMessage}" style="color: red; font-weight: bold;">ERROR: Incorrect Format</div>
+			<div th:if="${#fields.hasErrors('*')}"></div>
+            <div th:each="err : ${#fields.errors('*')}">
+                <span style="color:red" th:text="${err}" class="fieldError"></span>
+            </div>
+            <div>Already have an account?</div> 
+            <div><a href="/login">Login here</a></div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
