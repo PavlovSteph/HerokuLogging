@@ -15,11 +15,62 @@
         <appender-ref ref="Console" />
     </root>
 
-    <!-- logger for LoginController (Login tracking) -->
+    <!-- Logger for LoginController (Login tracking) -->
     <logger name="com.gcu.controller.LoginController" level="info" additivity="false">
         <appender-ref ref="Console" />
     </logger>
 
+    <!-- Logger for RegisterController (Registration tracking) -->
+    <logger name="com.gcu.controller.RegisterController" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for LoginService (Service tracking) -->
+    <logger name="com.gcu.business.LoginService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for ProductsBusinessService (Service tracking) -->
+    <logger name="com.gcu.business.ProductsBusinessService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for RegisterService (Service tracking) -->
+    <logger name="com.gcu.business.RegisterService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for UsersBusinessService (User details service) -->
+    <logger name="com.gcu.business.UsersBusinessService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for ProductsRestService (Rest service tracking) -->
+    <logger name="com.gcu.business.ProductsRestService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for RegisterDataService (Data Service tracking) -->
+    <logger name="com.gcu.data.RegisterDataService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for LoginDataService (Data Service tracking) -->
+    <logger name="com.gcu.data.LoginDataService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for ProductDataService (Data Service tracking) -->
+    <logger name="com.gcu.data.ProductDataService" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- Logger for UsersRepository (Repository tracking) -->
+    <logger name="com.gcu.data.repository.UsersRepository" level="info" additivity="false">
+        <appender-ref ref="Console" />
+    </logger>
+
 </configuration>
+
 
 
